@@ -8,6 +8,7 @@ class InputComponent extends AppComponent {
   constructor() {
     super();
     const newState = {
+      readOnly: true,
       properties: [
         {
           categoryName: 'General',
@@ -42,6 +43,11 @@ class InputComponent extends AppComponent {
     this.state = Object.assign(this.state, newState); // merge two states together, and dont lose any parent state properties.
   }
 
+  handleDbClick = (e) => {
+      e.preventDefault();
+      this.setState(prevState => ({readOnly: !prevState.readOnly}))
+  }
+
   renderContent() {
     return (
       <div style={{ width: '100%' }}>
@@ -59,6 +65,8 @@ class InputComponent extends AppComponent {
                   id="input-component"
                   name="input"
                   placeholder="Input Placeholder"
+                  readOnly={this.state.readOnly}
+                  onDoubleClick={this.handleDbClick}
                 />
               </div>
             </div>
