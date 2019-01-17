@@ -38,10 +38,6 @@
     overflow: hidden !important;
 }
 
-.input-card input{
-    cursor: pointer;
-}
-
 .input-component {
     font-size: 16px !important;
     line-height: 22px !important;

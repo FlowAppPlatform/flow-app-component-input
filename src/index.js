@@ -8,7 +8,8 @@ class InputComponent extends AppComponent {
   constructor() {
     super();
     const newState = {
-      readOnly: true,
+      interactiveMode: false,
+      readOnly: false,
       properties: [
         {
           categoryName: 'General',
@@ -42,14 +43,21 @@ class InputComponent extends AppComponent {
 
     this.state = Object.assign(this.state, newState); // merge two states together, and dont lose any parent state properties.
   }
+  
+  componentDidMount(){
+    const interactiveMode = !(this.props.propertyData.interactiveMode === undefined);
+    this.setState({interactiveMode, readOnly: interactiveMode});
+  }
 
   handleDbClick = (e) => {
       e.preventDefault();
-      this.setState(prevState => ({readOnly: !prevState.readOnly}))
+      if(this.state.interactiveMode){
+          this.setState(prevState => ({readOnly: !prevState.readOnly}))
+      }
   }
 
   renderContent() {
-    return (
+      return (
       <div style={{ width: '100%' }}>
         <div className="input-container">
           <label className="input-label" htmlFor="input-component">
@@ -58,7 +66,8 @@ class InputComponent extends AppComponent {
           <div dir="ltr">
             <div className="input-inner-container">
               <div className="input-card">
-                <input
+                <input 
+                  style={{cursor: 'pointer'}}
                   type="text"
                   autoComplete="text"
                   className="input-component"
