@@ -50,14 +50,19 @@ class InputComponent extends AppComponent {
   }
 
   handleDbClick = (e) => {
-      e.preventDefault();
-      if(this.state.interactiveMode){
-          this.setState(prevState => ({readOnly: !prevState.readOnly}))
-      }
+    e.preventDefault();
+    if(this.state.interactiveMode){
+        this.setState(prevState => ({readOnly: !prevState.readOnly}))
+    }
+  }
+
+  triggerGraphEvent = () => {
+    const graphId = this.getPropertyData('event');
+    this.getElementProps().onEvent(graphId)
   }
 
   renderContent() {
-      return (
+    return (
       <div style={{ width: '100%' }}>
         <div className="input-container">
           <label className="input-label" htmlFor="input-component">
@@ -73,6 +78,9 @@ class InputComponent extends AppComponent {
                   className="input-component"
                   id="input-component"
                   name="input"
+                  onMouseOver={this.triggerGraphEvent}
+                  onKeyUp={this.triggerGraphEvent}
+                  onKeyDown={this.triggerGraphEvent}
                   placeholder="Input Placeholder"
                   readOnly={this.state.readOnly}
                   onDoubleClick={this.handleDbClick}
