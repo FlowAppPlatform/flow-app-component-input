@@ -64,6 +64,18 @@ class InputComponent extends AppComponent {
           this.setState(prevState => ({readOnly: !prevState.readOnly}))
       }
   }
+  
+  componentDidMount(){
+    const interactiveMode = !(this.props.propertyData.interactiveMode === undefined);
+    this.setState({interactiveMode, readOnly: interactiveMode});
+  }
+
+  handleDbClick = (e) => {
+      e.preventDefault();
+      if(this.state.interactiveMode){
+          this.setState(prevState => ({readOnly: !prevState.readOnly}))
+      }
+  }
 
   renderContent() {
       return (
