@@ -14,7 +14,15 @@ class InputComponent extends AppComponent {
         {
           categoryName: 'General',
           categoryDescription: 'Basic settings for the input',
-          properties: [],
+          properties: [
+            {
+              id: 'value',
+              name: 'Value',
+              type: 'text',
+              options: {},
+              data: null,
+            },
+          ],
         },
         {
           categoryName: 'Events',
@@ -41,7 +49,8 @@ class InputComponent extends AppComponent {
       allowsChildren: false,
     };
 
-    this.state = Object.assign(this.state, newState); // merge two states together, and dont lose any parent state properties.
+    this.state = Object.assign(this.state, newState);
+    // merge two states together, and dont lose any parent state properties
   }
   
   componentDidMount(){
