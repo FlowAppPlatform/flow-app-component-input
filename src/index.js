@@ -21,12 +21,33 @@ class InputComponent extends AppComponent {
           categoryDescription: 'Events for the input',
           properties: [
             {
-              id: 'event',
-              name: 'Events',
+              id: 'hover',
+              name: 'Hover Event',
               type: 'graph',
               options: {},
               data: null,
             },
+            {
+              id: 'keyup',
+              name: 'Keyup Event',
+              type: 'graph',
+              options: {},
+              data: null
+            },
+            {
+              id: 'keydown',
+              name: 'Keydown Event',
+              type: 'graph',
+              options: {},
+              data: null
+            },
+            {
+              id: 'load',
+              name: 'Load Event',
+              type: 'graph',
+              options: {},
+              data: null
+            }
           ],
         },
       ],
@@ -47,6 +68,7 @@ class InputComponent extends AppComponent {
   componentDidMount(){
     const interactiveMode = !(this.props.propertyData.interactiveMode === undefined);
     this.setState({interactiveMode, readOnly: interactiveMode});
+    this.triggerGraphEvent('load');
   }
 
   handleDbClick = (e) => {
@@ -56,8 +78,8 @@ class InputComponent extends AppComponent {
     }
   }
 
-  triggerGraphEvent = () => {
-    const graphId = this.getPropertyData('event');
+  triggerGraphEvent = (eventId) => {
+    const graphId = this.getPropertyData(eventId);
     this.getElementProps().onEvent(graphId)
   }
 
@@ -78,9 +100,9 @@ class InputComponent extends AppComponent {
                   className="input-component"
                   id="input-component"
                   name="input"
-                  onMouseOver={this.triggerGraphEvent}
-                  onKeyUp={this.triggerGraphEvent}
-                  onKeyDown={this.triggerGraphEvent}
+                  onMouseOver={() => this.triggerGraphEvent('hover')}
+                  onKeyUp={() => this.triggerGraphEvent('keyup')}
+                  onKeyDown={() => this.triggerGraphEvent('keydown')}
                   placeholder="Input Placeholder"
                   readOnly={this.state.readOnly}
                   onDoubleClick={this.handleDbClick}
