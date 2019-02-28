@@ -10,32 +10,27 @@ class InputComponent extends AppComponent {
     const newState = {
       interactiveMode: false,
       readOnly: false,
-      properties: [
-        {
+      properties: [{
           categoryName: 'General',
           categoryDescription: 'Basic settings for the input',
-          properties: [
-            {
-              id: 'value',
-              name: 'Value',
-              type: 'text',
-              options: {},
-              data: null,
-            },
-          ],
+          properties: [{
+            id: 'value',
+            name: 'Value',
+            type: 'text',
+            options: {},
+            data: null,
+          }, ],
         },
         {
           categoryName: 'Events',
           categoryDescription: 'Events for the input',
-          properties: [
-            {
-              id: 'event',
-              name: 'Events',
-              type: 'graph',
-              options: {},
-              data: null,
-            },
-          ],
+          properties: [{
+            id: 'event',
+            name: 'Events',
+            type: 'graph',
+            options: {},
+            data: null,
+          }, ],
         },
       ],
       iconUrl: '/assets/images/input-component.png',
@@ -52,33 +47,47 @@ class InputComponent extends AppComponent {
     this.state = Object.assign(this.state, newState);
     // merge two states together, and dont lose any parent state properties
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     const interactiveMode = !(this.props.propertyData.interactiveMode === undefined);
-    this.setState({interactiveMode, readOnly: interactiveMode});
+    this.setState({
+      interactiveMode,
+      readOnly: interactiveMode
+    });
   }
 
   handleDbClick = (e) => {
-      e.preventDefault();
-      if(this.state.interactiveMode){
-          this.setState(prevState => ({readOnly: !prevState.readOnly}))
-      }
+    e.preventDefault();
+    if (this.state.interactiveMode) {
+      this.setState(prevState => ({
+        readOnly: !prevState.readOnly
+      }))
+    }
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     const interactiveMode = !(this.props.propertyData.interactiveMode === undefined);
-    this.setState({interactiveMode, readOnly: interactiveMode});
+    this.setState({
+      interactiveMode,
+      readOnly: interactiveMode
+    });
   }
 
   handleDbClick = (e) => {
-      e.preventDefault();
-      if(this.state.interactiveMode){
-          this.setState(prevState => ({readOnly: !prevState.readOnly}))
-      }
+    e.preventDefault();
+    if (this.state.interactiveMode) {
+      this.setState(prevState => ({
+        readOnly: !prevState.readOnly
+      }))
+    }
+  }
+
+  handleChange = e => {
+    this.setPropertyData(this.props.id, 'value', e.target.value);
   }
 
   renderContent() {
-      return (
+    return (
       <div style={{ width: '100%' }}>
         <div className="input-container">
           <label className="input-label" htmlFor="input-component">
@@ -87,7 +96,7 @@ class InputComponent extends AppComponent {
           <div dir="ltr">
             <div className="input-inner-container">
               <div className="input-card">
-                <input 
+                <input
                   style={{cursor: 'pointer'}}
                   type="text"
                   autoComplete="text"
@@ -97,6 +106,8 @@ class InputComponent extends AppComponent {
                   placeholder="Input Placeholder"
                   readOnly={this.state.readOnly}
                   onDoubleClick={this.handleDbClick}
+                  onChange={this.handleChange}
+                  value={this.getPropertyData('value') || ''}
                 />
               </div>
             </div>
