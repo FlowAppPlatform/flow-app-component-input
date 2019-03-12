@@ -14,12 +14,18 @@ class InputComponent extends AppComponent {
           categoryName: 'General',
           categoryDescription: 'Basic settings for the input',
           properties: [{
+            id: 'name',
+            name: 'Name',
+            type: 'text',
+            options: {},
+            data: null,
+          }, {
             id: 'value',
             name: 'Value',
             type: 'text',
             options: {},
             data: null,
-          }, ],
+          }],
         },
         {
           categoryName: 'Events',
